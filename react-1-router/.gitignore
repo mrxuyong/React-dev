@@ -1,2 +1,16 @@
 .idea
 node_modules
+
+/.idea
+/.idea/*
+/*/.idea/*
+/*.iml
+/*/*.iml
+/target/*
+/target
+/*/target/*
+/*/target
+/*/*/*/*/*/js*/build/*
+/*/*/*/*/*/js*/node_modules/*
+/*/*/*/*/*/js*/npm*
+/*/*/*/*/*/*/main.jsp
