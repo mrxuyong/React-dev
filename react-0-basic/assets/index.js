@@ -16,12 +16,14 @@ export default class IndexApp extends Component {
 
   render() {
     return (
-      <div>
-        This is IndexApp.
-      </div>
+      <a href="https://www.baidu.com">
+        This is IndexApp...
+      </a>
     );
   }
+
 }
-//render(<IndexApp/>, document.getElementById('app'));
-ReactDom.render(<IndexApp/>, document.getElementById('app'));
+
+render(<IndexApp/>, document.getElementById('app'));
+//ReactDom.render(<IndexApp/>, document.getElementById('app'));
 
