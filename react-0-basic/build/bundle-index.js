@@ -71,6 +71,8 @@
 
 	var _inherits3 = _interopRequireDefault(_inherits2);
 
+	var _dec, _class;
+
 	var _react = __webpack_require__(87);
 
 	var _react2 = _interopRequireDefault(_react);
@@ -79,7 +81,9 @@
 
 	var _reactDom2 = _interopRequireDefault(_reactDom);
 
-	var _store = __webpack_require__(261);
+	var _iflux = __webpack_require__(261);
+
+	var _store = __webpack_require__(276);
 
 	var _store2 = _interopRequireDefault(_store);
 
@@ -89,8 +93,7 @@
 	 * IndexApp is my first example;
 	 */
 	//debug: true, it will show good logs
-	//@StoreProvider(AppStore, {debug: true})
-	var IndexApp = function (_Component) {
+	var IndexApp = (_dec = (0, _iflux.StoreProvider)(_store2.default, { debug: true }), _dec(_class = function (_Component) {
 	  (0, _inherits3.default)(IndexApp, _Component);
 
 	  function IndexApp() {
@@ -108,16 +111,13 @@
 	    value: function render() {
 	      return _react2.default.createElement(
 	        'a',
-	        { href: 'https://www.baidu.com' },
+	        { href: 'https://www.baidu.com', target: '_blank' },
 	        'This is IndexApp...'
 	      );
 	    }
 	  }]);
 	  return IndexApp;
-	}(_react.Component);
-	//import {StoreProvider} from 'iflux2';
-
-
+	}(_react.Component)) || _class);
 	exports.default = IndexApp;
 
 
@@ -23069,217 +23069,792 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	exports.default = undefined;
+	exports.Validator = exports.StoreProvider = exports.Store = exports.Relax = exports.Util = exports.Actor = exports.Action = exports.Atom = exports.msg = exports.DQL = exports.QL = undefined;
 
-	var _getPrototypeOf = __webpack_require__(1);
+	var _msg = __webpack_require__(262);
 
-	var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
+	var _msg2 = _interopRequireDefault(_msg);
 
-	var _classCallCheck2 = __webpack_require__(27);
+	var _actor = __webpack_require__(264);
 
-	var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
+	var _actor2 = _interopRequireDefault(_actor);
 
-	var _possibleConstructorReturn2 = __webpack_require__(32);
+	var _storeProvider = __webpack_require__(265);
 
-	var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
+	var _storeProvider2 = _interopRequireDefault(_storeProvider);
 
-	var _inherits2 = __webpack_require__(79);
+	var _relax = __webpack_require__(266);
 
-	var _inherits3 = _interopRequireDefault(_inherits2);
+	var _relax2 = _interopRequireDefault(_relax);
 
-	var _iflux = __webpack_require__(262);
+	var _store = __webpack_require__(271);
+
+	var _store2 = _interopRequireDefault(_store);
+
+	var _decorator = __webpack_require__(273);
+
+	var _atom = __webpack_require__(274);
+
+	var _atom2 = _interopRequireDefault(_atom);
+
+	var _ql = __webpack_require__(268);
+
+	var _dql = __webpack_require__(270);
+
+	var _validator = __webpack_require__(275);
+
+	var _validator2 = _interopRequireDefault(_validator);
+
+	var _util = __webpack_require__(269);
+
+	var _util2 = _interopRequireDefault(_util);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	//import {Store} from 'iflux2';
-
-	var AppStore = function (_Store) {
-	  (0, _inherits3.default)(AppStore, _Store);
-
-	  function AppStore(props) {
-	    (0, _classCallCheck3.default)(this, AppStore);
-
-	    //debug
-	    var _this = (0, _possibleConstructorReturn3.default)(this, (0, _getPrototypeOf2.default)(AppStore).call(this, props));
-
-	    window._store = _this;
-	    return _this;
-	  }
-
-	  return AppStore;
-	}(_iflux.Store);
-
-	exports.default = AppStore;
+	exports.QL = _ql.QL;
+	exports.DQL = _dql.DQL;
+	exports.msg = _msg2.default;
+	exports.Atom = _atom2.default;
+	exports.Action = _decorator.Action;
+	exports.Actor = _actor2.default;
+	exports.Util = _util2.default;
+	exports.Relax = _relax2.default;
+	exports.Store = _store2.default;
+	exports.StoreProvider = _storeProvider2.default;
+	exports.Validator = _validator2.default;
 
 /***/ },
 /* 262 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = {
-	  Store: __webpack_require__(263),
-	  connectToStore: __webpack_require__(267),
-	  Validator: __webpack_require__(268),
-	  msg: __webpack_require__(269),
-	  mixins: {
-	    StoreMixin: __webpack_require__(271)
-	  }
-	};
+	'use strict';
 
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _events = __webpack_require__(263);
+
+	exports.default = new _events.EventEmitter(); /**
+	                                               * msg
+	                                               */
 
 /***/ },
 /* 263 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ function(module, exports) {
 
-	var Immutable = __webpack_require__(264);
-	var Cursor = __webpack_require__(265);
-	var _ = __webpack_require__(266);
+	// Copyright Joyent, Inc. and other Node contributors.
+	//
+	// Permission is hereby granted, free of charge, to any person obtaining a
+	// copy of this software and associated documentation files (the
+	// "Software"), to deal in the Software without restriction, including
+	// without limitation the rights to use, copy, modify, merge, publish,
+	// distribute, sublicense, and/or sell copies of the Software, and to permit
+	// persons to whom the Software is furnished to do so, subject to the
+	// following conditions:
+	//
+	// The above copyright notice and this permission notice shall be included
+	// in all copies or substantial portions of the Software.
+	//
+	// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+	// OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+	// MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN
+	// NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
+	// DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
+	// OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
+	// USE OR OTHER DEALINGS IN THE SOFTWARE.
 
+	function EventEmitter() {
+	  this._events = this._events || {};
+	  this._maxListeners = this._maxListeners || undefined;
+	}
+	module.exports = EventEmitter;
 
-	/**
-	 * 封装应用的核心Store，使用Immutable来trace change
-	 *
-	 * immutable真是和React是绝配啊，最初只是看到Om的架构
-	 * 感觉真是非常简洁，充分利用Clojure的数据结构的特性
-	 * 1. 不可变 2. 持久化数据结构 3. cursor局部更新数据
-	 *
-	 * 一直寻找这样的方案，对于Immutable.js如获至宝。所以
-	 * 对于Reactconf2015最期待的就是Immutable的分享。
-	 *
-	 * immutable使我们对于变化的跟踪变得更简单，且不变的数据共享
-	 * 又兼顾性能。
-	 */
-	module.exports = Store;
+	// Backwards-compat with node 0.10.x
+	EventEmitter.EventEmitter = EventEmitter;
 
+	EventEmitter.prototype._events = undefined;
+	EventEmitter.prototype._maxListeners = undefined;
 
-	/**
-	 * 数据中心
-	 *
-	 * @param obj
-	 */
-	function Store(data) {
-	  if (!(this instanceof Store)) return new Store(data);
+	// By default EventEmitters will print a warning if more than 10 listeners are
+	// added to it. This is a useful default which helps finding memory leaks.
+	EventEmitter.defaultMaxListeners = 10;
 
-	  //当前应用的数据
-	  this.data = Immutable.fromJS(data || {});
+	// Obviously not all Emitters should be limited to 10. This function allows
+	// that to be increased. Set to zero for unlimited.
+	EventEmitter.prototype.setMaxListeners = function(n) {
+	  if (!isNumber(n) || n < 0 || isNaN(n))
+	    throw TypeError('n must be a positive number');
+	  this._maxListeners = n;
+	  return this;
+	};
 
-	  //缓存初始状态的值
-	  this.init = this.data;
+	EventEmitter.prototype.emit = function(type) {
+	  var er, handler, len, args, i, listeners;
 
-	  //注册store change的callback
-	  this.callbacks = [];
+	  if (!this._events)
+	    this._events = {};
 
-	  /**
-	   * 暴露给外面的方法
-	   */
-	  return {
-	    data: this.getData.bind(this),
-	    onStoreChange: this.onStoreChange.bind(this),
-	    removeStoreChange: this.removeStoreChange.bind(this),
-	    cursor: this.cursor.bind(this),
-	    reset: this.reset.bind(this)
-	  };
+	  // If there is no 'error' event listener then throw.
+	  if (type === 'error') {
+	    if (!this._events.error ||
+	        (isObject(this._events.error) && !this._events.error.length)) {
+	      er = arguments[1];
+	      if (er instanceof Error) {
+	        throw er; // Unhandled 'error' event
+	      } else {
+	        // At least give some kind of context to the user
+	        var err = new Error('Uncaught, unspecified "error" event. (' + er + ')');
+	        err.context = er;
+	        throw err;
+	      }
+	    }
+	  }
+
+	  handler = this._events[type];
+
+	  if (isUndefined(handler))
+	    return false;
+
+	  if (isFunction(handler)) {
+	    switch (arguments.length) {
+	      // fast cases
+	      case 1:
+	        handler.call(this);
+	        break;
+	      case 2:
+	        handler.call(this, arguments[1]);
+	        break;
+	      case 3:
+	        handler.call(this, arguments[1], arguments[2]);
+	        break;
+	      // slower
+	      default:
+	        args = Array.prototype.slice.call(arguments, 1);
+	        handler.apply(this, args);
+	    }
+	  } else if (isObject(handler)) {
+	    args = Array.prototype.slice.call(arguments, 1);
+	    listeners = handler.slice();
+	    len = listeners.length;
+	    for (i = 0; i < len; i++)
+	      listeners[i].apply(this, args);
+	  }
+
+	  return true;
+	};
+
+	EventEmitter.prototype.addListener = function(type, listener) {
+	  var m;
+
+	  if (!isFunction(listener))
+	    throw TypeError('listener must be a function');
+
+	  if (!this._events)
+	    this._events = {};
+
+	  // To avoid recursion in the case that type === "newListener"! Before
+	  // adding it to the listeners, first emit "newListener".
+	  if (this._events.newListener)
+	    this.emit('newListener', type,
+	              isFunction(listener.listener) ?
+	              listener.listener : listener);
+
+	  if (!this._events[type])
+	    // Optimize the case of one listener. Don't need the extra array object.
+	    this._events[type] = listener;
+	  else if (isObject(this._events[type]))
+	    // If we've already got an array, just append.
+	    this._events[type].push(listener);
+	  else
+	    // Adding the second element, need to change to array.
+	    this._events[type] = [this._events[type], listener];
+
+	  // Check for listener leak
+	  if (isObject(this._events[type]) && !this._events[type].warned) {
+	    if (!isUndefined(this._maxListeners)) {
+	      m = this._maxListeners;
+	    } else {
+	      m = EventEmitter.defaultMaxListeners;
+	    }
+
+	    if (m && m > 0 && this._events[type].length > m) {
+	      this._events[type].warned = true;
+	      console.error('(node) warning: possible EventEmitter memory ' +
+	                    'leak detected. %d listeners added. ' +
+	                    'Use emitter.setMaxListeners() to increase limit.',
+	                    this._events[type].length);
+	      if (typeof console.trace === 'function') {
+	        // not supported in IE 10
+	        console.trace();
+	      }
+	    }
+	  }
+
+	  return this;
+	};
+
+	EventEmitter.prototype.on = EventEmitter.prototype.addListener;
+
+	EventEmitter.prototype.once = function(type, listener) {
+	  if (!isFunction(listener))
+	    throw TypeError('listener must be a function');
+
+	  var fired = false;
+
+	  function g() {
+	    this.removeListener(type, g);
+
+	    if (!fired) {
+	      fired = true;
+	      listener.apply(this, arguments);
+	    }
+	  }
+
+	  g.listener = listener;
+	  this.on(type, g);
+
+	  return this;
+	};
+
+	// emits a 'removeListener' event iff the listener was removed
+	EventEmitter.prototype.removeListener = function(type, listener) {
+	  var list, position, length, i;
+
+	  if (!isFunction(listener))
+	    throw TypeError('listener must be a function');
+
+	  if (!this._events || !this._events[type])
+	    return this;
+
+	  list = this._events[type];
+	  length = list.length;
+	  position = -1;
+
+	  if (list === listener ||
+	      (isFunction(list.listener) && list.listener === listener)) {
+	    delete this._events[type];
+	    if (this._events.removeListener)
+	      this.emit('removeListener', type, listener);
+
+	  } else if (isObject(list)) {
+	    for (i = length; i-- > 0;) {
+	      if (list[i] === listener ||
+	          (list[i].listener && list[i].listener === listener)) {
+	        position = i;
+	        break;
+	      }
+	    }
+
+	    if (position < 0)
+	      return this;
+
+	    if (list.length === 1) {
+	      list.length = 0;
+	      delete this._events[type];
+	    } else {
+	      list.splice(position, 1);
+	    }
+
+	    if (this._events.removeListener)
+	      this.emit('removeListener', type, listener);
+	  }
+
+	  return this;
+	};
+
+	EventEmitter.prototype.removeAllListeners = function(type) {
+	  var key, listeners;
+
+	  if (!this._events)
+	    return this;
+
+	  // not listening for removeListener, no need to emit
+	  if (!this._events.removeListener) {
+	    if (arguments.length === 0)
+	      this._events = {};
+	    else if (this._events[type])
+	      delete this._events[type];
+	    return this;
+	  }
+
+	  // emit removeListener for all listeners on all events
+	  if (arguments.length === 0) {
+	    for (key in this._events) {
+	      if (key === 'removeListener') continue;
+	      this.removeAllListeners(key);
+	    }
+	    this.removeAllListeners('removeListener');
+	    this._events = {};
+	    return this;
+	  }
+
+	  listeners = this._events[type];
+
+	  if (isFunction(listeners)) {
+	    this.removeListener(type, listeners);
+	  } else if (listeners) {
+	    // LIFO order
+	    while (listeners.length)
+	      this.removeListener(type, listeners[listeners.length - 1]);
+	  }
+	  delete this._events[type];
+
+	  return this;
+	};
+
+	EventEmitter.prototype.listeners = function(type) {
+	  var ret;
+	  if (!this._events || !this._events[type])
+	    ret = [];
+	  else if (isFunction(this._events[type]))
+	    ret = [this._events[type]];
+	  else
+	    ret = this._events[type].slice();
+	  return ret;
+	};
+
+	EventEmitter.prototype.listenerCount = function(type) {
+	  if (this._events) {
+	    var evlistener = this._events[type];
+
+	    if (isFunction(evlistener))
+	      return 1;
+	    else if (evlistener)
+	      return evlistener.length;
+	  }
+	  return 0;
+	};
+
+	EventEmitter.listenerCount = function(emitter, type) {
+	  return emitter.listenerCount(type);
+	};
+
+	function isFunction(arg) {
+	  return typeof arg === 'function';
 	}
 
+	function isNumber(arg) {
+	  return typeof arg === 'number';
+	}
 
-	/**
-	 * 获取数据
-	 */
-	 Store.prototype.getData = function() {
-	   return this.data;
-	 };
+	function isObject(arg) {
+	  return typeof arg === 'object' && arg !== null;
+	}
 
-
-	/**
-	 * 获取store中的cursor
-	 */
-	Store.prototype.cursor = function() {
-	  /**
-	   * cursor发生变化的回调
-	   *
-	   * @param nextState 变化后的状态
-	   * @param preState 变化前状态
-	   * @param path cursor变化的路径
-	   */
-	   var change = function (nextState, preState, path) {
-	     var cpath = path.join() || 'root';
-
-	     _.log(
-	       '\ncursor:path: [', cpath, ']\n',
-	       '\nstore:\n',
-	        (nextState)
-	          ? JSON.stringify(nextState.toJSON(), '',  2)
-	          : 'is null. (Maybe was deleted.)'
-	      );
-
-	      //判断是否出现数据不同步的情况
-	      if (preState != this.data) {
-	        throw new Error('attempted to altere expired data.');
-	      }
-
-	      this.data = nextState;
-
-	      this.callbacks.forEach(function (callback) {
-	        callback(nextState, path);
-	      });
-	    }.bind(this);
-
-	    return Cursor.from(this.data, change);
-	 };
-
-
-	/**
-	 * 绑定Store数据变化的回调
-	 */
-	 Store.prototype.onStoreChange = function(callback) {
-	   //防止重复添加
-	   for (var i = 0,len = this.callbacks.length; i < len; i++) {
-	     if (callback === this.callbacks[i]) {
-	       return;
-	     }
-	   }
-	   this.callbacks.push(callback);
-	 };
-	 
-	 
-	 /** 
-	  * 解除Store的数据变化的绑定
-	  */
-	 Store.prototype.removeStoreChange = function(callback) {
-	   for (var i = 0, len = this.callbacks.length; i < len; i++) {
-	     if (this.callbacks[i] == callback) {
-	       this.callbacks.splice(i, 1);
-	       break;
-	     }
-	   }
-	 };
-
-
-
-	/**
-	 * 重置某个路径下的immutable值
-	 *
-	 * @param path 数据的路径
-	 */
-	 Store.prototype.reset = function(path) {
-	   if (path) {
-	     var isArray = _.isArray(path);
-	     var initVal = this.init[isArray ? 'getIn' : 'get'](path);
-
-	     //set
-	     this.cursor()[isArray ? 'setIn' : 'set'](path, initVal);
-	   } else {
-	     //如果path为空，整个数据全部回到初始状态
-	     this.data = this.init;
-	     var self = this;
-	     this.callbacks.forEach(function (callback) {
-	       callback(self.data);
-	     });
-	   }
-	 };
+	function isUndefined(arg) {
+	  return arg === void 0;
+	}
 
 
 /***/ },
 /* 264 */
+/***/ function(module, exports) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	/**
+	 * Actor，致敬Erlang，Scala的akka的Actor model
+	 * Actor, 独立计算的执行单元
+	 * 我们不共享状态(share state), 只去transform state
+	 *
+	 * 
+	 */
+
+	var Actor = function () {
+	  function Actor() {
+	    _classCallCheck(this, Actor);
+	  }
+
+	  _createClass(Actor, [{
+	    key: "defaultState",
+
+
+	    /**
+	     * 定义actor的默认状态
+	     * @returns {{}}
+	     */
+	    value: function defaultState() {
+	      return {};
+	    }
+
+	    /**
+	     * actor的mode的receive,被store在dispatch的时候调用
+	     * @param msg
+	     * @param state
+	     * @param param
+	     * @returns {Object}
+	     */
+
+	    //记录当前的路由信息
+
+	  }, {
+	    key: "receive",
+	    value: function receive(msg, state, param) {
+	      //this._route是在@Action标记中初始化完成
+	      var route = this._route || {};
+	      //获取处理的函数
+	      var handler = route[msg];
+
+	      //如果可以处理返回处理后的结果，否则直接返回state
+	      return handler ? handler.call(this, state, param) : state;
+	    }
+	  }]);
+
+	  return Actor;
+	}();
+
+	exports.default = Actor;
+
+/***/ },
+/* 265 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	exports.default = connectToStore;
+
+	var _react = __webpack_require__(87);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /**
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * StoreProvider
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * 主要的作用是在Store和React的App之间建立桥梁
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * 将Store初始化,切绑定到React顶层App的上下文
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * 
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                */
+
+
+	/**
+	 * WrapperComponent
+	 * @param AppStore
+	 * @returns {Function}
+	 */
+	function connectToStore(AppStore) {
+	  var opts = arguments.length <= 1 || arguments[1] === undefined ? {} : arguments[1];
+
+	  return function (Component) {
+	    var _class, _temp;
+
+	    return _temp = _class = function (_React$Component) {
+	      _inherits(StoreContainer, _React$Component);
+
+	      function StoreContainer(props) {
+	        _classCallCheck(this, StoreContainer);
+
+	        //如果是debug状态
+
+	        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(StoreContainer).call(this, props));
+
+	        _this.getChildContext = function () {
+	          return {
+	            store: _this._store
+	          };
+	        };
+
+	        if (opts.debug) {
+	          console.group('StoreProvider ' + Component.name + ' debug mode');
+	        }
+	        //初始化Store
+	        _this._store = new AppStore(opts);
+	        return _this;
+	      }
+
+	      _createClass(StoreContainer, [{
+	        key: 'componentDidMount',
+	        value: function componentDidMount() {
+	          if (opts.debug) {
+	            console.groupEnd();
+	          }
+	        }
+	      }, {
+	        key: 'render',
+	        value: function render() {
+	          return _react2.default.createElement(Component, _extends({}, this.props, { store: this._store }));
+	        }
+	      }]);
+
+	      return StoreContainer;
+	    }(_react2.default.Component), _class.childContextTypes = {
+	      store: _react2.default.PropTypes.object
+	    }, _temp;
+	  };
+	}
+
+/***/ },
+/* 266 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	exports.default = Relax;
+
+	var _react = __webpack_require__(87);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _immutable = __webpack_require__(267);
+
+	var _ql = __webpack_require__(268);
+
+	var _dql = __webpack_require__(270);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /**
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * 致敬Reley,更希望我们小伙伴可以relax
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * Relax根据containerComponent的defaultProps
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * 自动数据依赖注入, 数据源优先级为:
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * 1. this.props
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * 2. store的action函数
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * 3. query-lang
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * 4. store的state
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * 5. 组件设置的默认值
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                *
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * 
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                */
+
+
+	function Relax(Component) {
+	  var RelaxContainer = function (_React$Component) {
+	    _inherits(RelaxContainer, _React$Component);
+
+	    //debug状态
+
+	    //当前的组件状态
+
+	    function RelaxContainer(props) {
+	      _classCallCheck(this, RelaxContainer);
+
+	      var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(RelaxContainer).call(this, props));
+
+	      _this._handleStoreChange = function (state) {
+	        if (_this._mounted) {
+	          //re-render
+	          _this.setState({ storeState: state });
+	        }
+	      };
+
+	      _this.state = {
+	        storeState: (0, _immutable.fromJS)({})
+	      };
+	      return _this;
+	    }
+	    //当前的所有的子组件的props
+
+	    //当前的状态
+
+
+	    _createClass(RelaxContainer, [{
+	      key: 'componentWillMount',
+	      value: function componentWillMount() {
+	        this._mounted = false;
+
+	        //检查store是不是存在上下文
+	        if (!this.context.store) {
+	          throw new Error('Could not find @StoreProvider binds AppStore in current context');
+	        }
+
+	        //设置debug级别
+	        this._debug = this.context.store._debug;
+	        if (this._debug) {
+	          console.time('relax calculator props');
+	          console.groupCollapsed('iflux2:Relax:) ' + Component.name + ' componentWillMount');
+	        }
+
+	        //计算最终的props,这样写的是避免querylang的重复计算
+	        this._relaxProps = Object.assign({}, this.props, this.getProps());
+
+	        //trace log
+	        if (this._debug) {
+	          console.timeEnd('relax calculator props');
+	          console.groupEnd();
+	        }
+	      }
+	    }, {
+	      key: 'componentDidMount',
+	      value: function componentDidMount() {
+	        this._mounted = true;
+	        //绑定store数据变化的监听
+	        this.context.store.subscribe(this._handleStoreChange);
+	      }
+	    }, {
+	      key: 'componentWillUpdate',
+	      value: function componentWillUpdate() {
+	        this._mounted = false;
+	      }
+	    }, {
+	      key: 'componentDidUpdate',
+	      value: function componentDidUpdate() {
+	        this._mounted = true;
+	      }
+	    }, {
+	      key: 'componentWillUnmount',
+	      value: function componentWillUnmount() {
+	        this._mounted = false;
+	        this.context.store.unsubscribe(this._handleStoreChange);
+	      }
+
+	      /**
+	       * 3ks immutable
+	       * @param nextProps
+	       * @returns {boolean}
+	       */
+
+	    }, {
+	      key: 'shouldComponentUpdate',
+	      value: function shouldComponentUpdate(nextProps) {
+	        if (this._debug) {
+	          console.time('relax calculator props ');
+	          console.groupCollapsed('iflux2:Relax:) ' + Component.name + ' shouldComponentUpdate');
+	        }
+
+	        //compare nextProps && this.props
+	        //如果属性不一致, 就去render
+	        if (Object.keys(nextProps).length != Object.keys(this.props).length) {
+	          if (this._debug) {
+	            console.groupEnd();
+	          }
+
+	          return true;
+	        }
+
+	        //合并新的属性集合
+	        //判断是不是数据没有变化, 如果没有变化不需要render
+	        var newRelaxProps = Object.assign({}, nextProps, this.getProps());
+
+	        for (var key in newRelaxProps) {
+	          if (newRelaxProps.hasOwnProperty(key)) {
+	            if (newRelaxProps[key] != this._relaxProps[key]) {
+	              this._relaxProps = newRelaxProps;
+
+	              //trace log
+	              if (this._debug) {
+	                console.timeEnd('relax calculator props ');
+	                console.groupEnd();
+	              }
+
+	              return true;
+	            }
+	          }
+	        }
+
+	        if (this._debug) {
+	          console.log('iflux2: Relax ' + Component.name + ' avoid re-render');
+	          console.timeEnd('relax calculator props ');
+	          console.groupEnd();
+	        }
+
+	        return false;
+	      }
+	    }, {
+	      key: 'render',
+	      value: function render() {
+	        return _react2.default.createElement(Component, this._relaxProps);
+	      }
+
+	      /**
+	       * 计算prop的值 然后自动注入
+	       *
+	       * 1. 默认属性是不是存在，不存在返回空对象
+	       * 2. 默认属性的值是不是一个合法的query-lang， 如果是就在store中通过bigQuery计算
+	       * 3. 默认属性是不是在父组件传递的props中，如果是取
+	       * 4. 是不是store得属性
+	       * 5. 是不是store得某个key值
+	       * 6. 都不是就是默认值
+	       */
+
+	    }, {
+	      key: 'getProps',
+	      value: function getProps() {
+	        var dql = {};
+	        var props = {};
+	        var store = this.context.store;
+
+	        var defaultProps = Component.defaultProps || {};
+
+	        for (var propName in defaultProps) {
+	          if (defaultProps.hasOwnProperty(propName)) {
+
+	            //判断defaultProps的值是不是query的语法
+	            var propValue = defaultProps[propName];
+	            if (propValue instanceof _ql.QueryLang) {
+	              props[propName] = store.bigQuery(propValue);
+	              continue;
+	            }
+
+	            //隔离出来DQL
+	            if (propValue instanceof _dql.DynamicQueryLang) {
+	              dql[propName] = propValue;
+	            }
+
+	            props[propName] = this.props[propName] || store[propName] || store.state().get(propName) || propValue;
+	          }
+	        }
+
+	        //开始计算DQL
+	        for (var _propName in dql) {
+	          if (dql.hasOwnProperty(_propName)) {
+	            props[_propName] = store.bigQuery(dql[_propName].context(props).ql());
+	          }
+	        }
+
+	        return props;
+	      }
+
+	      /**
+	       * 监听store的变化
+	       */
+
+	    }]);
+
+	    return RelaxContainer;
+	  }(_react2.default.Component);
+
+	  RelaxContainer.contextTypes = {
+	    store: _react2.default.PropTypes.object
+	  };
+
+
+	  return RelaxContainer;
+	}
+
+/***/ },
+/* 267 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -28263,7 +28838,709 @@
 	}));
 
 /***/ },
-/* 265 */
+/* 268 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.QL = exports.QueryLang = undefined;
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }(); /**
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * 查询语言
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * 
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      */
+
+
+	var _util = __webpack_require__(269);
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	//递增的id
+	var incrementId = 0;
+
+	var QueryLang = exports.QueryLang = function () {
+	  function QueryLang(name, lang) {
+	    _classCallCheck(this, QueryLang);
+
+	    this._id = ++incrementId;
+
+	    //如果第一个参数为字符串，改字符串就代表了该QL的name
+	    //该name就是为了更好的帮助我们debug调试问题
+	    if (typeof name === 'string' || (0, _util.isStr)(name)) {
+	      this._name = name;
+	      this._lang = lang;
+	    } else {
+	      this._name = '';
+	      this._lang = name;
+	    }
+	  }
+
+	  /**
+	   * 判断当前是不是一个合法的query lang
+	   * @returns {boolean}
+	   */
+
+
+	  _createClass(QueryLang, [{
+	    key: 'isValidQuery',
+	    value: function isValidQuery() {
+	      return (0, _util.isQuery)(this._lang);
+	    }
+
+	    /**
+	     * 当前的id
+	     * @returns {number}
+	     */
+
+	  }, {
+	    key: 'id',
+	    value: function id() {
+	      return this._id;
+	    }
+
+	    /**
+	     * 当前的name
+	     */
+
+	  }, {
+	    key: 'name',
+	    value: function name() {
+	      return this._name || this._id;
+	    }
+
+	    /**
+	     * 当前的语法标记
+	     * @returns {Array.<Object>}
+	     */
+
+	  }, {
+	    key: 'lang',
+	    value: function lang() {
+	      return this._lang;
+	    }
+	  }]);
+
+	  return QueryLang;
+	}();
+
+	//Factory Method
+
+
+	var QL = exports.QL = function QL(name, lang) {
+	  return new QueryLang(name, lang);
+	};
+
+/***/ },
+/* 269 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.isQuery = isQuery;
+	exports.isArray = isArray;
+	exports.isFn = isFn;
+	exports.isStr = isStr;
+	exports.type = type;
+	/**
+	 * 判断当前的参数是不是query-lang的合法形式
+	 * @param ql
+	 * @returns {boolean}
+	 * 
+	 */
+	function isQuery(ql) {
+	  return isArray(ql) && isFn(ql[ql.length - 1]);
+	}
+
+	/**
+	 * 判断当前的参数是不是数组
+	 * @param arr
+	 * @returns {boolean}
+	 */
+	function isArray(arr) {
+	  return type(arr) === '[object Array]';
+	}
+
+	/**
+	 * 是不是函数
+	 * @param fn
+	 * @returns {boolean}
+	 */
+	function isFn(fn) {
+	  return type(fn) === '[object Function]';
+	}
+
+	/**
+	 * 是不是字符串
+	 * @param str
+	 */
+	function isStr(str) {
+	  return type(str) === '[object String]';
+	}
+
+	/**
+	 * 判断数据类型
+	 * @param type
+	 * @returns {string}
+	 */
+	function type(type) {
+	  return Object.prototype.toString.call(type);
+	}
+
+/***/ },
+/* 270 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.DQL = exports.DynamicQueryLang = undefined;
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _ql = __webpack_require__(268);
+
+	var _util = __webpack_require__(269);
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	/**
+	 * 动态的QueryLang
+	 * 
+	 */
+
+	var DynamicQueryLang = exports.DynamicQueryLang = function () {
+	  function DynamicQueryLang(name, lang) {
+	    _classCallCheck(this, DynamicQueryLang);
+
+	    this._ctx = {};
+	    this._ql = (0, _ql.QL)(name, lang);
+	  }
+
+	  /**
+	   * 分析路径中的动态元素，然后根据上下文替换
+	   * 
+	   * @param  {Array<Object>} lang
+	   */
+
+
+	  _createClass(DynamicQueryLang, [{
+	    key: 'analyserLang',
+	    value: function analyserLang(ql) {
+	      //校验query的合法性
+	      if (!ql.isValidQuery()) {
+	        throw new Error('PQL invalid partial query-lang');
+	      }
+
+	      //获取语法结构
+	      var lang = ql.lang();
+	      for (var i = 0, len = lang.length - 1; i < len; i++) {
+	        //获取当前的路径
+	        var path = lang[i];
+	        if ((0, _util.isStr)(path) && path[0] === '$') {
+	          //重新赋值
+	          lang[i] = this._ctx[path.substring(1)];
+	        } else if ((0, _util.isArray)(path)) {
+	          for (var j = 0, _len = path.length; j < _len; j++) {
+	            var _path = lang[i][j];
+	            if ((0, _util.isStr)(_path) && _path[0] === '$') {
+	              //重新赋值
+	              lang[i][j] = this._ctx[_path.substring(1)];
+	            }
+	          }
+	        } else if (path instanceof DynamicQueryLang) {
+	          //递归一次
+	          this.analyserLang(path._ql);
+	          lang[i] = path._ql;
+	        }
+	      }
+	    }
+
+	    /**
+	     * 返回可用的query lang
+	     */
+
+	  }, {
+	    key: 'ql',
+	    value: function ql() {
+	      this.analyserLang(this._ql);
+	      return this._ql;
+	    }
+
+	    /**
+	     * 设置上下文
+	     * @param  {Object} ctx
+	     */
+
+	  }, {
+	    key: 'context',
+	    value: function context(ctx) {
+	      this._ctx = ctx;
+	      return this;
+	    }
+	  }]);
+
+	  return DynamicQueryLang;
+	}();
+
+	/**
+	 * 工厂函数
+	 * @param  {string|Array<Object>} name
+	 * @param  {Array<Object>} lang
+	 */
+
+
+	var DQL = exports.DQL = function DQL(name, lang) {
+	  return new DynamicQueryLang(name, lang);
+	};
+
+/***/ },
+/* 271 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.default = undefined;
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }(); /**
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * iflux的状态容器中心(MapReduce)
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * 聚合actor, 分派action, 计算query-lang
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      *
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * 
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      */
+
+
+	var _immutable = __webpack_require__(267);
+
+	var _cursor = __webpack_require__(272);
+
+	var _cursor2 = _interopRequireDefault(_cursor);
+
+	var _util = __webpack_require__(269);
+
+	var _ql = __webpack_require__(268);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	var Store = function () {
+	  _createClass(Store, [{
+	    key: 'bindActor',
+
+
+	    /**
+	     * 绑定Actor
+	     * @returns {Array}
+	     */
+
+	    //当前的状态
+
+	    //actor聚合的状态
+
+	    //状态变化的事件通知
+	    value: function bindActor() {
+	      return [];
+	    }
+
+	    /**
+	     * 初始化store
+	     * 
+	     * @param  {Object={debug:false}} opts
+	     */
+
+	    //缓存QL的计算结果
+
+	    //当前的对外暴露的状态
+
+	    //当前的actor
+
+	  }]);
+
+	  function Store() {
+	    var opts = arguments.length <= 0 || arguments[0] === undefined ? { debug: false } : arguments[0];
+
+	    _classCallCheck(this, Store);
+
+	    this._debug = opts.debug;
+	    this._cacheQL = {};
+	    this._callbacks = [];
+	    this._actors = {};
+	    this._actorState = (0, _immutable.OrderedMap)();
+
+	    //聚合actor
+	    this.reduceActor(this.bindActor());
+	    //聚合状态
+	    this._state = this.reduceState();
+	  }
+
+	  /**
+	   * 聚合actor的defaultState到一个对象中去
+	   * @params actorList
+	   */
+
+
+	  _createClass(Store, [{
+	    key: 'reduceActor',
+	    value: function reduceActor(actorList) {
+	      var state = {};
+	      for (var i = 0, len = actorList.length; i < len; i++) {
+	        var actor = actorList[i];
+	        var key = this._debug ? actor.constructor.name : i;
+	        this._actors[key] = actor;
+	        state[key] = actor.defaultState();
+	      }
+	      this._actorState = (0, _immutable.fromJS)(state);
+	    }
+
+	    /**
+	     * 响应view层的事件,将业务分发到所有的actor
+	     * @param msg
+	     * @param param
+	     */
+
+	  }, {
+	    key: 'dispatch',
+	    value: function dispatch(msg) {
+	      var _this = this;
+
+	      var param = arguments.length <= 1 || arguments[1] === undefined ? {} : arguments[1];
+
+
+	      //trace log
+	      this.debug(function () {
+	        console.time('dispatch');
+	        console.groupCollapsed('store dispatch {msg =>' + JSON.stringify(msg) + '}}');
+	        console.log('param=>');
+	        console.log(param.toJS ? param.toJS() : param);
+	      });
+
+	      //dispatch => every actor
+
+	      var _loop = function _loop(name) {
+	        if (_this._actors.hasOwnProperty(name)) {
+	          (function () {
+	            var actor = _this._actors[name];
+	            var state = _this._actorState.get(name);
+
+	            //cursor更新最新的状态
+	            _this.cursor().withMutations(function (cursor) {
+
+	              //trace log
+	              _this.debug(function () {
+	                var _route = actor._route || {};
+	                var handlerName = _route[msg] ? _route[msg].name : 'default handler(no match)';
+	                console.log(name + ' handle => ' + handlerName);
+	              });
+
+	              var newState = actor.receive(msg, state, param);
+	              cursor.set(name, newState);
+	            });
+	          })();
+	        }
+	      };
+
+	      for (var name in this._actors) {
+	        _loop(name);
+	      }
+
+	      //end log
+	      this.debug(function () {
+	        console.groupEnd && console.groupEnd();
+	        console.timeEnd('dispatch');
+	      });
+	    }
+
+	    /**
+	     * 获取当前的cursor
+	     */
+
+	  }, {
+	    key: 'cursor',
+	    value: function cursor() {
+	      var _this2 = this;
+
+	      return _cursor2.default.from(this._actorState, function (nextState, state) {
+	        //warning
+	        if (state != _this2._actorState) {
+	          console.warn && console.warn('attempted to alter expired state');
+	        }
+
+	        //如果没有数据状态的更新
+	        if (nextState === state) {
+	          return;
+	        }
+
+	        _this2._actorState = nextState;
+	        //从新计算一次最新的state状态
+	        _this2._state = _this2.reduceState();
+
+	        _this2._callbacks.forEach(function (callback) {
+	          callback(_this2._state);
+	        });
+	      });
+	    }
+
+	    /**
+	     * 计算query-lang的值
+	     * @param ql
+	     * @param opts
+	     * @returns {*}
+	     */
+
+	  }, {
+	    key: 'bigQuery',
+	    value: function bigQuery(ql) {
+	      var _this3 = this;
+
+	      //校验query-lang
+	      if (!ql.isValidQuery(ql)) {
+	        throw new Error('Invalid query lang');
+	      }
+
+	      var id = ql.id();
+	      var name = ql.name();
+	      var metaData = {};
+
+	      //trace log
+	      this.debug(function () {
+	        console.time('bigQuery');
+	        console.groupCollapsed('ql#' + name + ' big query ==>');
+	      });
+
+	      //当前的QL是不是已经查询过
+	      //如果没有查询过构建查询meta data
+	      if (!this._cacheQL[id]) {
+	        //trace log
+	        this.debug(function () {
+	          console.log(':( not exist in cache');
+	        });
+
+	        this._cacheQL[id] = {
+	          result: 0,
+	          deps: []
+	        };
+	      }
+
+	      metaData = this._cacheQL[id];
+
+	      //不改变参数,拒绝side-effect
+	      var qlCopy = ql.lang().slice();
+	      //获取最后的function
+	      var fn = qlCopy.pop();
+	      //逐个分析bigquery的path是否存在过期的数据
+	      var expired = false;
+
+	      var args = qlCopy.map(function (path, key) {
+	        //如果当前的参数仍然是query-lang,则直接递归计算一次query—lang的值
+	        if (path instanceof _ql.QueryLang) {
+	          var _result = _this3.bigQuery(path);
+
+	          //数据有变化
+	          if (_result != metaData.deps[key]) {
+	            metaData.deps[key] = _result;
+	            expired = true;
+
+	            //trace log
+	            _this3.debug(function () {
+	              console.log(':( deps:ql#' + path.name() + ' data was expired.');
+	            });
+	          }
+
+	          _this3.debug(function () {
+	            console.log(':) deps:ql#' + path.name() + ' get result from cache');
+	          });
+
+	          return _result;
+	        }
+
+	        //直接返回当前path下面的状态值
+	        //如果当前的参数是数组使用immutable的getIn
+	        //如果当前的参数是一个字符串使用get方式
+	        var value = _this3._state[(0, _util.isArray)(path) ? 'getIn' : 'get'](path);
+
+	        //不匹配
+	        if (value != metaData.deps[key]) {
+	          metaData.deps[key] = value;
+	          expired = true;
+
+	          _this3.debug(function () {
+	            console.log(':( deps: ' + JSON.stringify(path) + ' data had expired.');
+	          });
+	        } else if (typeof value === 'undefined' && typeof metaData.deps[key] === 'undefined') {
+	          expired = true;
+	          _this3.debug(function () {
+	            console.log(':( deps: ' + JSON.stringify(path) + ' undefined. Be careful!');
+	          });
+	        }
+
+	        return value;
+	      });
+
+	      //返回数据,默认缓存数据
+	      var result = metaData.result;
+
+	      //如果过期，重新计算
+	      if (expired) {
+	        result = fn.apply(null, args);
+	        metaData.result = result;
+	      } else {
+	        this.debug(function () {
+	          console.log(':) get result from cache');
+	        });
+	      }
+
+	      //trace log
+	      this.debug(function () {
+	        var result = metaData.result.toJS ? metaData.result.toJS() : metaData.result;
+	        console.log('!!result => ' + JSON.stringify(result, null, 2));
+	        console.groupEnd && console.groupEnd();
+	        console.timeEnd('bigQuery');
+	      });
+
+	      return result;
+	    }
+
+	    /**
+	     * 当前的状态
+	     * @returns {Object}
+	     */
+
+	  }, {
+	    key: 'state',
+	    value: function state() {
+	      return this._state;
+	    }
+
+	    /**
+	     * 从actorState聚合出对外暴露的状态
+	     */
+
+	  }, {
+	    key: 'reduceState',
+	    value: function reduceState() {
+	      return this._actorState.valueSeq().reduce(function (init, value) {
+	        return init.merge(value);
+	      }, (0, _immutable.OrderedMap)());
+	    }
+
+	    /**
+	     * 订阅state的变化
+	     * @param callback
+	     */
+
+	  }, {
+	    key: 'subscribe',
+	    value: function subscribe(callback) {
+	      if (!callback) {
+	        return;
+	      }
+
+	      //防止重复添加
+	      for (var i = 0, len = this._callbacks.length; i < len; i++) {
+	        if (this._callbacks[i] === callback) {
+	          return;
+	        }
+	      }
+
+	      //push
+	      this._callbacks.push(callback);
+	    }
+
+	    /**
+	     * 取消订阅State的变化
+	     * @param callback
+	     */
+
+	  }, {
+	    key: 'unsubscribe',
+	    value: function unsubscribe(callback) {
+	      if (!callback) {
+	        return;
+	      }
+
+	      for (var i = 0, len = this._callbacks.length; i < len; i++) {
+	        //删除
+	        if (callback === this._callbacks[i]) {
+	          this._callbacks.splice(i, 1);
+	          break;
+	        }
+	      }
+	    }
+
+	    //;;;;;;;;;;;;;;;;;;;;;;help method;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+	    /**
+	     * 替代if
+	     */
+
+	  }, {
+	    key: 'debug',
+	    value: function debug(callback) {
+	      if (this._debug) {
+	        callback();
+	      }
+	    }
+
+	    /**
+	    * 格式化当前的状态
+	    */
+
+	  }, {
+	    key: 'pprint',
+	    value: function pprint() {
+	      this.prettyPrint(this.state());
+	    }
+
+	    /**
+	     * 内部状态
+	     */
+
+	  }, {
+	    key: 'pprintActor',
+	    value: function pprintActor() {
+	      this.prettyPrint(this._actorState);
+	    }
+
+	    /**
+	     * 格式化ql的查询结果
+	     * @param ql
+	     */
+
+	  }, {
+	    key: 'pprintBigQuery',
+	    value: function pprintBigQuery(ql, opts) {
+	      this.prettyPrint(this.bigQuery(ql, opts));
+	    }
+
+	    /**
+	     * 漂亮的格式化
+	     * @param obj
+	     */
+
+	  }, {
+	    key: 'prettyPrint',
+	    value: function prettyPrint(obj) {
+	      console.log(JSON.stringify(obj, null, 2));
+	    }
+	  }]);
+
+	  return Store;
+	}();
+
+	exports.default = Store;
+
+/***/ },
+/* 272 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -28283,7 +29560,7 @@
 	 * If you wish to use it in the browser, please check out Browserify or WebPack!
 	 */
 
-	var Immutable = __webpack_require__(264);
+	var Immutable = __webpack_require__(267);
 	var Iterable = Immutable.Iterable;
 	var Iterator = Iterable.Iterator;
 	var Seq = Immutable.Seq;
@@ -28612,1172 +29889,636 @@
 
 
 /***/ },
-/* 266 */
-/***/ function(module, exports, __webpack_require__) {
+/* 273 */
+/***/ function(module, exports) {
 
-	/* WEBPACK VAR INJECTION */(function(process) {/**
-	 * Description: iflux内部的工具类
-	 */
+	"use strict";
 
-
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
 	/**
-	 * 是不是debug状态
-	 * 判断是浏览器环境还是node环境，放在在node中测试代码
-	 * 以前的方案是在url的后面直接加上debug，即可开启。
-	 * 但是这种模式在SPA的应用中华丽丽的挂了，因为SPA的路由多用#来标识
-	 * 所以我们要全新设计一套，这次不需要在URL中设置，我们在console中直接动态的改变
+	 * Action decorator
 	 *
-	 * 有个笑话，『当我写代码的时候，我与上帝同在。现在只有上帝知道。』
-	 * 那我们就开启我们的上帝模式吧。
+	 * 用于标记Actor中的实力方法，主要的作用是给Actor绑定当前的handler方法
+	 * 便于Actor的receive方法可以搜索到哪个handler可以处理dispatch过来的事件
+	 * 
+	 * @param msg 事件名称
+	 * 
 	 */
-	var IS_DEBUG = false;
-
-
-	/**
-	 * 判断当前的环境
-	 */
-	var ctx = (typeof(window) === 'undefined') ? process : window;
-
-
-	/**
-	 * 开启上帝模式
-	 */
-	ctx.god = function() {
-	  IS_DEBUG = true;
-	  console.log('iflux say:此刻为您开启上帝模式, 完美世界即将开启');
-	  return "ok";
+	var Action = exports.Action = function Action(msg) {
+	  return function (target, props, descriptor) {
+	    target._route = target._route || {};
+	    target._route[msg] = descriptor.value;
+	  };
 	};
-
-
-	/**
-	 * 包装console.log
-	 */
-	exports.log = function() {
-	  IS_DEBUG
-	  && console
-	  && console.log
-	  && console.log.apply(console, arguments);
-	};
-
-
-	/**
-	 * 判断是不是数组
-	 *
-	 * @param arr
-	 * @returns {boolean}
-	 */
-	exports.isArray = function (arr) {
-	  return Object.prototype.toString.call(arr) === '[object Array]';
-	};
-
-
-	/**
-	 * 获取对象的所有key
-	 *
-	 * alias Object.keys
-	 * @param obj
-	 * @returns {Array}
-	 */
-	exports.keys = function (obj) {
-	  var keyArr = [];
-	  obj = obj || {};
-
-	  for (var key in obj) {
-	    if (obj.hasOwnProperty(key)) {
-	      keyArr.push(key);
-	    }
-	  }
-
-	  return keyArr;
-	};
-
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(89)))
 
 /***/ },
-/* 267 */
+/* 274 */
 /***/ function(module, exports, __webpack_require__) {
 
-	/**
-	 * 随着es2015的发布，我们也要跟着时代的变化，全面进入es6时代
-	 * 首先我们要解决的就是react的mixins的问题，因为es6没有对应的概念
-	 * 但是，通过高阶函数的wrapper，我们仍可以很优雅的解决这个问题。
-	 */
-	var React = __webpack_require__(87);
-	var assign = __webpack_require__(90);
-	var merge = Object.assign || assign;
+	'use strict';
 
-	//expose
-	module.exports = connectToStore;
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.default = undefined;
 
-	/**
-	 * connectToStore
-	 *
-	 * 通过高阶函数的封装使React的view和Immutable的数据层关联起来，并且可以感知到immutable的数据变化
-	 * @param store immutable的数据中心
-	 * @param reset 是否需要每次初始化的时候重置数据
-	 */
-	function connectToStore(store, reset) {
-	  return function StoreContainer(Component) {
-	    return React.createClass({
-	      displayName: 'StoreProvider',
-
-	      getInitialState: function() {
-	        //如果设置了重置数据，则在每次init的时候重置store
-	        if (reset) {
-	          store.reset();
-	        }
-
-	        return {
-	          data: store.data()
-	        };
-	      },
-
-	      componentWillMount: function() {
-	        this._mounted = false;
-	      },
-
-	      componentDidMount: function() {
-	        this._mounted = true;
-	        store.onStoreChange (this._onIfluxStoreChange);
-	      },
-
-	      componentWillUpdate: function() {
-	        this._mounted = false;
-	      },
-
-	      componentDidUpdate: function() {
-	        this._mounted = true;
-	      },
-
-	      componentWillUnmount: function() {
-	        this._mounted = false;
-	        store.removeStoreChange (this._onIfluxStoreChange);
-	      },
-
-	      render: function() {
-	        return React.createElement(Component, merge({}, this.props, {store: this.state.data}));
-	      },
-
-	      /**
-	       * 监听Store
-	       */
-	      _onIfluxStoreChange: function(nextState, path){
-	        if (this._mounted) {
-	          this.setState(function(){
-	            return { data: nextState }
-	          });
-	         }
-	      },
-	    });
-	  }
-	}
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }(); /**
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * Atom
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      *
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * 
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      */
 
 
-/***/ },
-/* 268 */
-/***/ function(module, exports, __webpack_require__) {
+	var _immutable = __webpack_require__(267);
+
+	var _cursor = __webpack_require__(272);
+
+	var _cursor2 = _interopRequireDefault(_cursor);
+
+	var _util = __webpack_require__(269);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 	/**
-	 * 使用immutable主要为了好还原fieldError
+	 * 原子不可变数据容器
+	 * 
 	 */
-	var Immutable = __webpack_require__(264);
-	var _ = __webpack_require__(266);
 
-
-	/**
-	 * Validator框架
-	 *
-	 * 思想：
-	 *  区别与jQuery validator针对dom进行校验，使用React我们尽量做到和DOM的分离。
-	 *  我们不去校验我们的dom数据，而是去校验我们的领域对象也就是我们的store。
-	 *  view层(react)只是去展示我们的校验结果罢了。这样我们view和validator解耦
-	 *  更清晰的职责划分，另外在validator中获取数据易如反掌。
-	 *
-	 * 目标：
-	 * 1. 校验全部配置的数据
-	 * 2. 校验配置数据中的单个数据
-	 * 4. 集成iflux的store
-	 *
-	 * Usage：
-	 *
-	 * var iflux = require('iflux');
-	 *
-	 * var store = iflux.Store({
-	 *  form: {
-	 *    username: '',
-	 *    password: '',
-	 *    email: ''
-	 *  }
-	 * });
-	 *
-	 * var validator = iflux.Validator(store, {
-	 *   'form.username': {
-	 *      required: true,
-	 *      minLength: 4,
-	 *      message: {
-	 *        required: 'username is required',
-	 *        minLength: 'username length great than 4'
-	 *
-	 *      }
-	 *   },
-	 *
-	 *   'form.password': {
-	 *      required: true,
-	 *      message: {
-	 *        required: 'password is required'
-	 *    }
-	 *   },
-	 *
-	 *   'form.email': {
-	 *	required: true,
-	 *	email: true,
-	 *	message: {
-	 *	  required: 'email is required',
-	 *	  email: 'email is invalid.'
-	 *	}
-	 *   }
-	 * });
-	 *
-	 * //customize validator
-	 * validator.rule('lessThen3', function(val) {
-	 *  return val < 3;
-	 * });
-	 *
-	 *
-	 * //校验全部
-	 * validator.isValid();
-	 *
-	 * //校验某一个
-	 * validator.isValid('username');
-	 *
-	 * @type {Function}
-	 */
-	module.exports = Validator;
-
-
-	/**
-	 * 封装我们的Validator对象
-	 *
-	 * @param store 关联的store
-	 * @param rules 关联的规则
-	 * @param opts 可选的参数
-	 * @constructor
-	 */
-	function Validator(store, rules, opts) {
-	  if (!(this instanceof Validator)) return new Validator(store, rules, opts);
-
-	  //校验参数
-	  if (!store || !rules) {
-	    throw new Error('store or rules can not empty!');
-	  }
-
-	  this.store = store;
-	  this.rules = rules;
-	  this.opts = opts || {};
-	  this.fieldErrors = Immutable.OrderedMap({});
+	var Atom = function () {
 
 	  /**
-	   * 最小化暴露方法
+	   * 初始化初始的数据结构
 	   */
-	  return {
-	    isValid: this.isValid.bind(this),
-	    rule: this.rule.bind(this),
-	    clearError: this.clearError.bind(this),
-	    fieldErrors: function () {
-	      return this.fieldErrors.toJS();
-	    }.bind(this)
+
+	  function Atom(record) {
+	    _classCallCheck(this, Atom);
+
+	    this._callbacks = [];
+	    this._atom = (0, _immutable.fromJS)(record);
 	  }
-	}
+
+	  /**
+	   * 获取值
+	   * 1. 如果path为空,就返回所有的值
+	   * 2. 如果path为字符串或者数组就按照immutable的path返回数据
+	   * 3. 其他返回空值
+	   * @param path
+	   * @returns {*}
+	   */
 
 
-	/**
-	 * 添加自定义的规则
-	 *
-	 * @param name 规则名称
-	 * @param callback 规则函数
-	 */
-	Validator.prototype.rule = function (name, callback) {
-	  this[name] = callback;
-	};
-
-
-	/**
-	 * 清空错误信息
-	 * @path 要清空的错误信息路径,不传默认清空所有
-	 *
-	 */
-	Validator.prototype.clearError = function(path) {
-	  if (path) {
-	    // 获取path对应的值
-	    var pathArr = path.split("\.");
-	    // 根据传入的path清空错误信息
-	    this.fieldErrors = this.fieldErrors[_.isArray(pathArr) ? 'removeIn' : 'remove'](pathArr);
-	  } else {
-	    // 如果没有传path默认清空所有的错误
-	    this.fieldErrors = Immutable.OrderedMap({});
-	  }
-	}
-
-
-	/**
-	 * 判断校验是不是通过
-	 *
-	 * @param path
-	 */
-	Validator.prototype.isValid = function (path) {
-	  var success = true;
-
-	  var _this = this;
-	  var store = this.store;
-	  var rules = this.rules;
-	  var opts = this.opts;
-
-	  var oneError = opts['oneError'];
-	  oneError = (oneError !== false);
-
-	  var validate = function (path) {
-	    var messageInfo = oneError ? '' : [];
-
-	    //获取path对应的校验规则
-	    var ruleObj = rules[path];
-	    var validatePassTip = ruleObj['message']['success'] || '';
-
-	    //获取path对应的值
-	    var pathArr = path.split("\.");
-	    //值默认为空字符串
-	    var val = store.data()[_.isArray(pathArr) ? 'getIn' : 'get'](pathArr) || '';
-
-	    //遍历所有的规则名称，执行校验方法
-	    var ruleNameList = _.keys(ruleObj).filter(function (ruleName) {
-	      return ruleName !== 'message';
-	    });
-
-	    //校验规则中是否包含必填项，如果没有必填项，当值为空时不校验
-	    var isRequired = ruleNameList.indexOf('required') != -1;
-
-	    for (var i = 0, len = ruleNameList.length; i < len; i++) {
-	      var ruleName = ruleNameList[i];
-	      //校验规则对应的值
-	      var ruleValue = ruleObj[ruleName];
-
-	      //log it
-	      _.log(
-	        '\npath:', path,
-	        'ruleName:', ruleName,
-	        'ruleValue:', ruleValue,
-	        'val:', val
-	      );
-
-	      //如果不是必填项，当值为空字时，不校验
-	      isRequired = isRequired || ruleName.indexOf('Required') != -1;
-
-	      if (ruleName !== 'required' && !isRequired && val === '') {
-	        continue;
+	  _createClass(Atom, [{
+	    key: 'value',
+	    value: function value(path) {
+	      var value = null;
+	      if (!path) {
+	        value = this._atom;
+	      } else if ((0, _util.isStr)(path) || (0, _util.isArray)(path)) {
+	        value = this._atom[(0, _util.isStr)(path) ? 'get' : 'getIn'](path);
 	      }
+	      return value;
+	    }
 
-	      if (typeof(_this[ruleName]) === 'undefined') {
-	        throw new Error(path + ':' + ruleName + ' can not find.');
-	      }
+	    /**
+	     * 获取cursor
+	     */
 
-	      //校验结果
-	      var result = _this[ruleName](ruleValue, val);
+	  }, {
+	    key: 'cursor',
+	    value: function cursor() {
+	      var _this = this;
 
-	      //校验没有通过
-	      if (!result) {
-	        success = false;
-	        var validMsg = (ruleObj['message'] || {})[ruleName];
-	        if (!validMsg) {
-	          _.log('Warning:', path, ' rule: ', ruleName, 'not any message info!');
+	      return _cursor2.default.from(this._atom, function (newState, state, path) {
+	        //校验数据是否过期
+	        if (state != _this._atom) {
+	          console.log && console.log('attempted to alter expired data.');
 	        }
-	        _.isArray(messageInfo) ?  messageInfo.push(validMsg || '') : (messageInfo = validMsg || '');
 
-	        //只显示一个错误
-	        if (oneError) {
+	        //校验有没有数据的变化
+	        if (newState === state) {
+	          return;
+	        }
+
+	        _this._atom = newState;
+	        _this._callbacks.forEach(function (cb) {
+	          return cb(newState, path);
+	        });
+	      });
+	    }
+
+	    /**
+	     * 订阅
+	     */
+
+	  }, {
+	    key: 'subscribe',
+	    value: function subscribe(callback) {
+	      if (!callback || !(0, _util.isFn)(callback)) {
+	        return;
+	      }
+
+	      //防止重复添加
+	      for (var i = 0, len = this._callbacks.length; i < len; i++) {
+	        if (callback === this._callbacks[i]) {
+	          return;
+	        }
+	      }
+
+	      this._callbacks.push(callback);
+	    }
+
+	    /**
+	     * 取消订阅
+	     */
+
+	  }, {
+	    key: 'unsubscribe',
+	    value: function unsubscribe(callback) {
+	      if (!callback || !(0, _util.isFn)(callback)) {
+	        return;
+	      }
+
+	      for (var i = 0, len = this._callbacks.length; i < len; i++) {
+	        if (callback === this._callbacks[i]) {
+	          this._callbacks.splice(i, 1);
 	          break;
 	        }
 	      }
 	    }
-	    var retObj = {};
-	    if (messageInfo.length) {
-	      retObj = {
-	        result: false,
-	        message: messageInfo
+
+	    /**
+	     * 打印出当前的内部数据状态
+	     */
+
+	  }, {
+	    key: 'pprint',
+	    value: function pprint() {
+	      console.log(JSON.stringify(this._atom.toJS(), null, 2));
+	    }
+	  }]);
+
+	  return Atom;
+	}();
+
+	exports.default = Atom;
+
+/***/ },
+/* 275 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	/**
+	 * Validator
+	 *
+	 * 封装常用的校验工具方法
+	 */
+
+	var Validator = function () {
+	  function Validator() {
+	    _classCallCheck(this, Validator);
+	  }
+
+	  _createClass(Validator, null, [{
+	    key: 'validate',
+
+
+	    /**
+	     * 验证
+	     * @param obj
+	     * @param rules
+	     * @param opts
+	     */
+	    value: function validate(obj, rules, opts) {
+	      var result = { result: true, errors: {} };
+	      var options = Object.assign({}, {
+	        oneError: false
+	      }, opts);
+
+	      for (var field in rules) {
+	        if (rules.hasOwnProperty(field)) {
+	          /**
+	           * 获取规则对象, 例如:
+	           * {
+	           *   userName: {
+	           *   required: true,
+	           *   email: true,
+	           *   message: {
+	           *    required: '用户名必填',
+	           *    email: '邮箱'
+	           *   }}
+	           * }
+	           */
+	          var ruleMap = rules[field];
+	          //将要校验的值
+	          var value = obj[field];
+	          //校验的信息
+	          var message = rules[field]['message'] || {};
+	          //错误集合
+	          var errors = [];
+
+	          for (var rule in ruleMap) {
+	            if (ruleMap.hasOwnProperty(rule) && rule != 'message') {
+	              var ruleValue = ruleMap[rule];
+	              //如果规则的值为false,跳过校验
+	              if (typeof ruleValue === 'boolean' && ruleValue === false) {
+	                continue;
+	              }
+	              var validateMethod = Validator[rule];
+	              //没有通过校验
+	              if (!validateMethod(value)) {
+	                errors.push(message[rule]);
+	                //如果开启一个错误
+	                if (options.oneError) {
+	                  break;
+	                }
+	              }
+	            }
+	          }
+
+	          if (errors.length != 0) {
+	            result.result = false;
+	            result.errors[field] = errors;
+
+	            //如果开启oneError，立刻返回错误
+	            if (options.oneError) {
+	              return result;
+	            }
+	          }
+	        }
 	      }
-	    } else {
-	      retObj = {
-	        result: true,
-	        message: validatePassTip
-	      }
+
+	      return result;
 	    }
 
-	    _this.fieldErrors = _this.fieldErrors[_.isArray(pathArr) ? 'setIn' : 'set'](pathArr, Immutable.fromJS(retObj));
-	  };
+	    /**
+	     * 判断是不是email
+	     * @param value
+	     * @returns {boolean}
+	     */
 
-	  //部分校验
-	  if (path != null) {
-	    if (rules[path]) {
-	      validate(path);
-	    } else {
-	      throw new Error('can not find match path.');
+	  }, {
+	    key: 'email',
+	    value: function email(value) {
+	      return (/^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/.test(value)
+	      );
 	    }
-	  } else {
-	    //全部校验
-	    //循环所有的path
-	    _.keys(rules).forEach(function (path) {
-	      validate(path);
-	    });
-	  }
 
-	  //如果校验没有通过，设置store的fieldErrors
-	  store.cursor().set('fieldErrors', this.fieldErrors);
+	    /**
+	     * 判断是不是url
+	     *
+	     * @param value
+	     * @returns {boolean|*}
+	     */
 
-	  return success;
-	};
-
-
-	//////////////////////////////////////////////////validate method//////////////////////////////////////////////////
-	/**
-	 *  判断是不是email
-	 *
-	 * @param param (email: true|false)
-	 * @param value (校验的值)
-	 * @returns {boolean|*}
-	 */
-	Validator.prototype.email = function (param, value) {
-	  var pass = true;
-
-	  if (param === true) {
-	    pass = /^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/.test(value);
-	  }
-
-	  return pass;
-	};
-
-
-	/**
-	 * 判断是不是url
-	 *
-	 * @param param(url:true|false)
-	 * @param value
-	 * @returns {boolean|*}
-	 */
-	Validator.prototype.url = function url(param, value) {
-	  var pass = true;
-
-	  if (param === true) {
-	    pass = /^(https?|s?ftp):\/\/(((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:)*@)?(((\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5]))|((([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.)+(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.?)(:\d*)?)(\/((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)+(\/(([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)*)*)?)?(\?((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)|[\uE000-\uF8FF]|\/|\?)*)?(#((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)|\/|\?)*)?$/i.test(value);
-	  }
-
-	  return pass;
-	};
-
-
-	/**
-	 *  校验是不是日期
-	 *
-	 * @param param
-	 * @param value
-	 * @returns {boolean}
-	 */
-	Validator.prototype.date = function (param, value) {
-	  var pass = true;
-
-	  if (param === true) {
-	    pass = !/Invalid|NaN/.test(new Date(value).toString());
-	  }
-
-	  return pass;
-	};
-
-
-	/**
-	 * 判断是不是ISO的日期格式
-	 *
-	 * @param param
-	 * @param value
-	 * @returns {boolean|*}
-	 */
-	Validator.prototype.dataISO = function dataISO(param, value) {
-	  var pass = true;
-
-	  if (param === true) {
-	    pass = /^\d{4}[\/\-](0?[1-9]|1[012])[\/\-](0?[1-9]|[12][0-9]|3[01])$/.test(value);
-	  }
-
-	  return pass;
-	};
-
-
-	/**
-	 * 判断是不是数字带小数点
-	 *
-	 * @param param
-	 * @param value
-	 * @returns {boolean}
-	 */
-	Validator.prototype.number = function number(param, value) {
-	  var result = true;
-
-	  if (param === true) {
-	    result = /^(?:-?\d+|-?\d{1,3}(?:,\d{3})+)?(?:\.\d+)?$/.test(value);
-	  }
-
-	  return result;
-	};
-
-
-	/**
-	 * 校验是不是数字不带小数点
-	 *
-	 * @param param
-	 * @param value
-	 * @returns {boolean|*}
-	 */
-	Validator.prototype.digits = function digits(param, value) {
-	  var pass = true;
-
-	  if (param === true) {
-	    pass = /^\d+$/.test(value);
-	  }
-
-	  return pass;
-	};
-
-
-	/**
-	 * 校验必须项
-	 *
-	 * @param param
-	 * @param value
-	 * @returns {boolean}
-	 */
-	Validator.prototype.required = function required(param, value) {
-	  var pass = true;
-
-	  if (pass === true) {
-	    return value.length > 0;
-	  }
-
-	  return pass;
-	};
-
-
-	/**
-	 * 身份证号码
-	 *
-	 * @param param
-	 * @param value
-	 * @returns {boolean}
-	 */
-	Validator.prototype.cardNo = function cardNo(param, value) {
-	  var pass = true;
-
-	  if (param === true) {
-	    var len = value.length, re;
-	    if (len == 15)
-	      re = new RegExp(/^(\d{6})()?(\d{2})(\d{2})(\d{2})(\d{3})$/);
-	    else if (len == 18)
-	      re = new RegExp(/^(\d{6})()?(\d{4})(\d{2})(\d{2})(\d{3})(\d|[Xx])$/);
-	    else {
-	      return false;
+	  }, {
+	    key: 'url',
+	    value: function url(value) {
+	      return (/^(https?|s?ftp):\/\/(((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:)*@)?(((\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5]))|((([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.)+(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.?)(:\d*)?)(\/((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)+(\/(([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)*)*)?)?(\?((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)|[\uE000-\uF8FF]|\/|\?)*)?(#((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)|\/|\?)*)?$/i.test(value)
+	      );
 	    }
-	    var a = value.match(re);
-	    if (a != null) {
-	      if (len == 15) {
-	        var D = new Date("19" + a[3] + "/" + a[4] + "/" + a[5]);
-	        var B = D.getYear() == a[3] && (D.getMonth() + 1) == a[4]
-	          && D.getDate() == a[5];
-	      } else {
-	        var D = new Date(a[3] + "/" + a[4] + "/" + a[5]);
-	        var B = D.getFullYear() == a[3] && (D.getMonth() + 1) == a[4]
-	          && D.getDate() == a[5];
-	      }
-	      if (!B) {
+
+	    /**
+	     *  校验是不是日期
+	     *
+	     * @param value
+	     * @returns {boolean}
+	     */
+
+	  }, {
+	    key: 'date',
+	    value: function date(value) {
+	      return !/Invalid|NaN/.test(new Date(value).toString());
+	    }
+
+	    /**
+	     * 判断是不是数字带小数点
+	     *
+	     * @param value
+	     * @returns {boolean}
+	     */
+
+	  }, {
+	    key: 'number',
+	    value: function number(value) {
+	      return (/^(?:-?\d+|-?\d{1,3}(?:,\d{3})+)?(?:\.\d+)?$/.test(value)
+	      );
+	    }
+
+	    /**
+	     * 校验是不是数字不带小数点
+	     *
+	     * @param value
+	     * @returns {boolean|*}
+	     */
+
+	  }, {
+	    key: 'digits',
+	    value: function digits(value) {
+	      return (/^\d+$/.test(value)
+	      );
+	    }
+
+	    /**
+	     * 校验必须项
+	     *
+	     * @param value
+	     * @returns {boolean}
+	     */
+
+	  }, {
+	    key: 'required',
+	    value: function required(value) {
+	      return (/\w+/.test(value)
+	      );
+	    }
+
+	    /**
+	     * 身份证号码
+	     *
+	     * @param value
+	     * @returns {boolean}
+	     */
+
+	  }, {
+	    key: 'cardNo',
+	    value: function cardNo(value) {
+	      var len = value.length,
+	          re;
+	      if (len == 15) re = new RegExp(/^(\d{6})()?(\d{2})(\d{2})(\d{2})(\d{3})$/);else if (len == 18) re = new RegExp(/^(\d{6})()?(\d{4})(\d{2})(\d{2})(\d{3})(\d)$/);else {
 	        return false;
 	      }
+	      var a = value.match(re);
+	      if (a != null) {
+	        if (len == 15) {
+	          var D = new Date("19" + a[3] + "/" + a[4] + "/" + a[5]);
+	          var B = D.getYear() == a[3] && D.getMonth() + 1 == a[4] && D.getDate() == a[5];
+	        } else {
+	          var D = new Date(a[3] + "/" + a[4] + "/" + a[5]);
+	          var B = D.getFullYear() == a[3] && D.getMonth() + 1 == a[4] && D.getDate() == a[5];
+	        }
+	        if (!B) {
+	          return false;
+	        }
+	      }
+	      return true;
 	    }
-	    return true;
-	  }
 
-	  return pass;
-	};
+	    /**
+	     * qq
+	     * @param value
+	     * @returns {boolean|*}
+	     */
 
+	  }, {
+	    key: 'qq',
+	    value: function qq(value) {
+	      return (/^[1-9][0-9]{4,14}$/.test(value)
+	      );
+	    }
 
-	/**
-	 *
-	 * @param param
-	 * @param value
-	 * @returns {boolean|*}
-	 */
-	Validator.prototype.qq = function qq(param, value) {
-	  var pass = true;
+	    /**
+	     * 手机号码
+	     * @param value
+	     * @returns {boolean}
+	     */
 
-	  if (param === true) {
-	    var reg = /^[1-9][0-9]{4,14}$/;
-	    pass = reg.test(value);
-	  }
+	  }, {
+	    key: 'mobile',
+	    value: function mobile(value) {
+	      var length = value.length;
+	      var reg = /^((1)+\d{10})$/;
+	      return length == 11 && reg.test(value);
+	    }
 
-	  return pass;
-	};
+	    /**
+	     * 电话号码
+	     * @param value
+	     * @returns {boolean|*}
+	     */
 
+	  }, {
+	    key: 'phone',
+	    value: function phone(value) {
+	      var reg = /^((\d{10,11})|^((\d{7,8})|(\d{4}|\d{3})-(\d{7,8})|(\d{4}|\d{3})-(\d{7,8})-(\d{4}|\d{3}|\d{2}|\d{1})|(\d{7,8})-(\d{4}|\d{3}|\d{2}|\d{1}))$)$/;
+	      return reg.test(value);
+	    }
 
-	/**
-	 * 手机号码
-	 * @param param
-	 * @param value
-	 * @returns {boolean}
-	 */
-	Validator.prototype.mobile = function mobile(param, value) {
-	  var pass = true;
+	    /**
+	     * 密码强度验证: 密码必须是字符与数字的混合
+	     *
+	     * @param value
+	     * @returns {boolean}
+	     */
 
-	  if (param === true) {
-	    var length = value.length;
-	    var reg = /^((1)+\d{10})$/;
-	    pass = length == 11 && reg.test(value);
-	  }
+	  }, {
+	    key: 'pwdMix',
+	    value: function pwdMix(value) {
+	      var reg = /[A-Za-z].*[0-9]|[0-9].*[A-Za-z]/;
+	      return reg.test(value);
+	    }
 
-	  return pass;
-	};
+	    /**
+	     * 最小值
+	     * @param param
+	     * @param value
+	     * @returns {boolean}
+	     */
 
-	/**
-	 * 电话号码
-	 * @param param
-	 * @param value
-	 * @returns {boolean|*}
-	 */
-	Validator.prototype.phone = function phone(param, value) {
-	  var pass = true;
-	  if (param === true) {
-	    var reg = /^((\d{10,11})|^((\d{7,8})|(\d{4}|\d{3})-(\d{7,8})|(\d{4}|\d{3})-(\d{7,8})-(\d{4}|\d{3}|\d{2}|\d{1})|(\d{7,8})-(\d{4}|\d{3}|\d{2}|\d{1}))$)$/;
-	    pass = reg.test(value);
-	  }
+	  }, {
+	    key: 'min',
+	    value: function min(param, value) {
+	      return value >= param;
+	    }
 
-	  return pass;
-	};
+	    /**
+	     * 最大值
+	     * @param param
+	     * @param value
+	     * @returns {boolean}
+	     */
 
+	  }, {
+	    key: 'max',
+	    value: function max(param, value) {
+	      return value <= param;
+	    }
 
-	/**
-	 * 密码强度验证: 密码必须是字符与数字的混合
-	 *
-	 * @param param
-	 * @param value
-	 * @returns {boolean}
-	 */
-	Validator.prototype.pwdMix = function pwdMix(param, value) {
-	  var pass = true;
+	    /**
+	     * 最小长度
+	     *
+	     * @param param
+	     * @param value
+	     * @returns {boolean}
+	     */
 
-	  if (param === true) {
-	    var reg = /[A-Za-z].*[0-9]|[0-9].*[A-Za-z]/;
-	    pass = reg.test(value);
-	  }
+	  }, {
+	    key: 'minLength',
+	    value: function minLength(param, value) {
+	      return value.length >= param;
+	    }
 
-	  return pass;
-	};
+	    /**
+	     * 最大长度
+	     * @param param
+	     * @param value
+	     * @returns {boolean}
+	     */
 
+	  }, {
+	    key: 'maxLength',
+	    value: function maxLength(param, value) {
+	      return value.length <= param;
+	    }
 
-	/**
-	 * 最小值
-	 * @param param
-	 * @param value
-	 * @returns {boolean}
-	 */
-	Validator.prototype.min = function min(param, value) {
-	  return value >= param;
-	};
+	    /**
+	     * 在范围内
+	     *
+	     * @param param
+	     * @param value
+	     * @returns {boolean}
+	     */
 
+	  }, {
+	    key: 'range',
+	    value: function range(param, value) {
+	      return value >= param[0] && value <= param[1];
+	    }
 
-	/**
-	 * 最大值
-	 * @param param
-	 * @param value
-	 * @returns {boolean}
-	 */
-	Validator.prototype.max = function max(param, value) {
-	  return value <= param;
-	};
+	    /**
+	     * 长度在范围之内
+	     * @param param
+	     * @param val
+	     * @returns {boolean}
+	     */
 
+	  }, {
+	    key: 'rangeLength',
+	    value: function rangeLength(param, val) {
+	      return val.length >= param[0] && val.length <= param[1];
+	    }
 
-	/**
-	 * 最小长度
-	 *
-	 * @param param
-	 * @param value
-	 * @returns {boolean}
-	 */
-	Validator.prototype.minLength = function minLength(param, value) {
-	  return value.length >= param;
-	};
+	    /**
+	     * 非法字符
+	     *
+	     * @param value
+	     * @returns {boolean}
+	     */
 
+	  }, {
+	    key: 'forbbidenChar',
+	    value: function forbbidenChar(value) {
+	      return (/[&\\<>'"]/.test(value)
+	      );
+	    }
 
-	/**
-	 * 最大长度
-	 * @param param
-	 * @param value
-	 * @returns {boolean}
-	 */
-	Validator.prototype.maxLength = function maxLength(param, value) {
-	  return value.length <= param;
-	};
+	    /**
+	     * 邮编
+	     *
+	     * @param value
+	     * @returns {boolean}
+	     */
 
+	  }, {
+	    key: 'zipCode',
+	    value: function zipCode(value) {
+	      return (/^[0-9]{6}$/.test(value)
+	      );
+	    }
 
-	/**
-	 * 在范围内
-	 *
-	 * @param param
-	 * @param value
-	 * @returns {boolean}
-	 */
-	Validator.prototype.range = function range(param, value) {
-	  return value >= param[0] && value <= param[1];
-	};
+	    /**
+	     * 判断是不是数字最多两位小数
+	     *
+	     * @param value
+	     * @returns {boolean}
+	     */
 
+	  }, {
+	    key: 'number',
+	    value: function number(value) {
+	      return (/^[0-9]+(.[0-9]{1,2})?$/.test(value)
+	      );
+	    }
 
-	/**
-	 *  * 长度在范围之内
-	 *   *
-	 *    * @param param
-	 *     * @param val
-	 *      * @returns {boolean}
-	 *       */
-	Validator.prototype.rangeLength = function rangeLength(param, val) {
-	  return val.length >= param[0] && val.length <= param[1];
-	};
+	    /**
+	     * 添加自定义校验方法
+	     * @param name: 校验方法名称
+	     * @param callback: 校验方法
+	     */
 
+	  }, {
+	    key: 'addValidator',
+	    value: function addValidator(name, callback) {
+	      Validator[name] = callback;
+	    }
+	  }]);
 
-	/**
-	 * 非法字符
-	 *
-	 * @param param
-	 * @param value
-	 * @returns {boolean}
-	 */
-	Validator.prototype.forbbidenChar = function forbbidenChar(param, value) {
-	  var pass = true;
+	  return Validator;
+	}();
 
-	  if (param === true) {
-	    pass = /[&\\<>'"]/.test(value);
-	  }
-
-	  return pass;
-	};
-
-
-	/**
-	 * 邮编
-	 *
-	 * @param param
-	 * @param value
-	 * @returns {boolean}
-	 */
-	Validator.prototype.zipCode = function zipCode(param, value) {
-	  var pass = true;
-	  if (param === true) {
-	    pass = /^[0-9]{6}$/.test(value);
-	  }
-	  return pass;
-	};
-
-
-	/**
-	 * 判断是不是数字最多两位小数
-	 *
-	 * @param param
-	 * @param value
-	 * @returns {boolean}
-	 */
-	Validator.prototype.number2point = function number(param, value) {
-	  var result = true;
-
-	  if (param === true) {
-	    result = /^[0-9]+(.[0-9]{1,2})?$/.test(value);
-	  }
-
-	  return result;
-	};
-
+	exports.default = Validator;
 
 /***/ },
-/* 269 */
+/* 276 */
 /***/ function(module, exports, __webpack_require__) {
 
-	/**
-	 * 使用更简洁的EventEmitter(完全没用dom的影子，只是一个callback队列)作为我们的消息中心
-	 *
-	 * 在没用使用React之前，使用jQuery使用pubsub的方案对模块进行解耦，不需要借助第三方的插件
-	 * 简单的使用jquery自定义事件来做即可。
-	 * 比如var msg = $({});
-	 *
-	 * msg.on('loveYou', function(event, param){});
-	 * msg.trigger('loveYou');
-	 *
-	 * 不好地方，一个pubsub却带有dom的影子会走jQuery的event dispatcher，然后参数的传递不能传递数组类型。
-	 *
-	 * 主要想简单的使用node EventEmitter模块，其实略感这个模块有点大，其实很可以简化。
-	 * 做到一个minievent。
-	 */
-	var EventEmitter = __webpack_require__(270).EventEmitter;
+	'use strict';
 
-	var emitter = module.exports = new EventEmitter();
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.default = undefined;
 
-	//infinit max listeners
-	emitter.setMaxListeners(0);
+	var _getPrototypeOf = __webpack_require__(1);
 
+	var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
 
-/***/ },
-/* 270 */
-/***/ function(module, exports) {
+	var _classCallCheck2 = __webpack_require__(27);
 
-	// Copyright Joyent, Inc. and other Node contributors.
-	//
-	// Permission is hereby granted, free of charge, to any person obtaining a
-	// copy of this software and associated documentation files (the
-	// "Software"), to deal in the Software without restriction, including
-	// without limitation the rights to use, copy, modify, merge, publish,
-	// distribute, sublicense, and/or sell copies of the Software, and to permit
-	// persons to whom the Software is furnished to do so, subject to the
-	// following conditions:
-	//
-	// The above copyright notice and this permission notice shall be included
-	// in all copies or substantial portions of the Software.
-	//
-	// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
-	// OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
-	// MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN
-	// NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
-	// DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
-	// OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
-	// USE OR OTHER DEALINGS IN THE SOFTWARE.
+	var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
 
-	function EventEmitter() {
-	  this._events = this._events || {};
-	  this._maxListeners = this._maxListeners || undefined;
-	}
-	module.exports = EventEmitter;
+	var _possibleConstructorReturn2 = __webpack_require__(32);
 
-	// Backwards-compat with node 0.10.x
-	EventEmitter.EventEmitter = EventEmitter;
+	var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
 
-	EventEmitter.prototype._events = undefined;
-	EventEmitter.prototype._maxListeners = undefined;
+	var _inherits2 = __webpack_require__(79);
 
-	// By default EventEmitters will print a warning if more than 10 listeners are
-	// added to it. This is a useful default which helps finding memory leaks.
-	EventEmitter.defaultMaxListeners = 10;
+	var _inherits3 = _interopRequireDefault(_inherits2);
 
-	// Obviously not all Emitters should be limited to 10. This function allows
-	// that to be increased. Set to zero for unlimited.
-	EventEmitter.prototype.setMaxListeners = function(n) {
-	  if (!isNumber(n) || n < 0 || isNaN(n))
-	    throw TypeError('n must be a positive number');
-	  this._maxListeners = n;
-	  return this;
-	};
+	var _iflux = __webpack_require__(261);
 
-	EventEmitter.prototype.emit = function(type) {
-	  var er, handler, len, args, i, listeners;
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	  if (!this._events)
-	    this._events = {};
+	var AppStore = function (_Store) {
+	  (0, _inherits3.default)(AppStore, _Store);
 
-	  // If there is no 'error' event listener then throw.
-	  if (type === 'error') {
-	    if (!this._events.error ||
-	        (isObject(this._events.error) && !this._events.error.length)) {
-	      er = arguments[1];
-	      if (er instanceof Error) {
-	        throw er; // Unhandled 'error' event
-	      } else {
-	        // At least give some kind of context to the user
-	        var err = new Error('Uncaught, unspecified "error" event. (' + er + ')');
-	        err.context = er;
-	        throw err;
-	      }
-	    }
+	  function AppStore(props) {
+	    (0, _classCallCheck3.default)(this, AppStore);
+
+	    //debug
+	    var _this = (0, _possibleConstructorReturn3.default)(this, (0, _getPrototypeOf2.default)(AppStore).call(this, props));
+
+	    window._store = _this;
+	    return _this;
 	  }
 
-	  handler = this._events[type];
-
-	  if (isUndefined(handler))
-	    return false;
-
-	  if (isFunction(handler)) {
-	    switch (arguments.length) {
-	      // fast cases
-	      case 1:
-	        handler.call(this);
-	        break;
-	      case 2:
-	        handler.call(this, arguments[1]);
-	        break;
-	      case 3:
-	        handler.call(this, arguments[1], arguments[2]);
-	        break;
-	      // slower
-	      default:
-	        args = Array.prototype.slice.call(arguments, 1);
-	        handler.apply(this, args);
-	    }
-	  } else if (isObject(handler)) {
-	    args = Array.prototype.slice.call(arguments, 1);
-	    listeners = handler.slice();
-	    len = listeners.length;
-	    for (i = 0; i < len; i++)
-	      listeners[i].apply(this, args);
-	  }
-
-	  return true;
-	};
-
-	EventEmitter.prototype.addListener = function(type, listener) {
-	  var m;
-
-	  if (!isFunction(listener))
-	    throw TypeError('listener must be a function');
-
-	  if (!this._events)
-	    this._events = {};
-
-	  // To avoid recursion in the case that type === "newListener"! Before
-	  // adding it to the listeners, first emit "newListener".
-	  if (this._events.newListener)
-	    this.emit('newListener', type,
-	              isFunction(listener.listener) ?
-	              listener.listener : listener);
-
-	  if (!this._events[type])
-	    // Optimize the case of one listener. Don't need the extra array object.
-	    this._events[type] = listener;
-	  else if (isObject(this._events[type]))
-	    // If we've already got an array, just append.
-	    this._events[type].push(listener);
-	  else
-	    // Adding the second element, need to change to array.
-	    this._events[type] = [this._events[type], listener];
-
-	  // Check for listener leak
-	  if (isObject(this._events[type]) && !this._events[type].warned) {
-	    if (!isUndefined(this._maxListeners)) {
-	      m = this._maxListeners;
-	    } else {
-	      m = EventEmitter.defaultMaxListeners;
-	    }
-
-	    if (m && m > 0 && this._events[type].length > m) {
-	      this._events[type].warned = true;
-	      console.error('(node) warning: possible EventEmitter memory ' +
-	                    'leak detected. %d listeners added. ' +
-	                    'Use emitter.setMaxListeners() to increase limit.',
-	                    this._events[type].length);
-	      if (typeof console.trace === 'function') {
-	        // not supported in IE 10
-	        console.trace();
-	      }
-	    }
-	  }
-
-	  return this;
-	};
-
-	EventEmitter.prototype.on = EventEmitter.prototype.addListener;
-
-	EventEmitter.prototype.once = function(type, listener) {
-	  if (!isFunction(listener))
-	    throw TypeError('listener must be a function');
-
-	  var fired = false;
-
-	  function g() {
-	    this.removeListener(type, g);
-
-	    if (!fired) {
-	      fired = true;
-	      listener.apply(this, arguments);
-	    }
-	  }
-
-	  g.listener = listener;
-	  this.on(type, g);
-
-	  return this;
-	};
-
-	// emits a 'removeListener' event iff the listener was removed
-	EventEmitter.prototype.removeListener = function(type, listener) {
-	  var list, position, length, i;
-
-	  if (!isFunction(listener))
-	    throw TypeError('listener must be a function');
-
-	  if (!this._events || !this._events[type])
-	    return this;
-
-	  list = this._events[type];
-	  length = list.length;
-	  position = -1;
-
-	  if (list === listener ||
-	      (isFunction(list.listener) && list.listener === listener)) {
-	    delete this._events[type];
-	    if (this._events.removeListener)
-	      this.emit('removeListener', type, listener);
-
-	  } else if (isObject(list)) {
-	    for (i = length; i-- > 0;) {
-	      if (list[i] === listener ||
-	          (list[i].listener && list[i].listener === listener)) {
-	        position = i;
-	        break;
-	      }
-	    }
-
-	    if (position < 0)
-	      return this;
-
-	    if (list.length === 1) {
-	      list.length = 0;
-	      delete this._events[type];
-	    } else {
-	      list.splice(position, 1);
-	    }
-
-	    if (this._events.removeListener)
-	      this.emit('removeListener', type, listener);
-	  }
-
-	  return this;
-	};
-
-	EventEmitter.prototype.removeAllListeners = function(type) {
-	  var key, listeners;
-
-	  if (!this._events)
-	    return this;
-
-	  // not listening for removeListener, no need to emit
-	  if (!this._events.removeListener) {
-	    if (arguments.length === 0)
-	      this._events = {};
-	    else if (this._events[type])
-	      delete this._events[type];
-	    return this;
-	  }
-
-	  // emit removeListener for all listeners on all events
-	  if (arguments.length === 0) {
-	    for (key in this._events) {
-	      if (key === 'removeListener') continue;
-	      this.removeAllListeners(key);
-	    }
-	    this.removeAllListeners('removeListener');
-	    this._events = {};
-	    return this;
-	  }
-
-	  listeners = this._events[type];
-
-	  if (isFunction(listeners)) {
-	    this.removeListener(type, listeners);
-	  } else if (listeners) {
-	    // LIFO order
-	    while (listeners.length)
-	      this.removeListener(type, listeners[listeners.length - 1]);
-	  }
-	  delete this._events[type];
-
-	  return this;
-	};
-
-	EventEmitter.prototype.listeners = function(type) {
-	  var ret;
-	  if (!this._events || !this._events[type])
-	    ret = [];
-	  else if (isFunction(this._events[type]))
-	    ret = [this._events[type]];
-	  else
-	    ret = this._events[type].slice();
-	  return ret;
-	};
-
-	EventEmitter.prototype.listenerCount = function(type) {
-	  if (this._events) {
-	    var evlistener = this._events[type];
-
-	    if (isFunction(evlistener))
-	      return 1;
-	    else if (evlistener)
-	      return evlistener.length;
-	  }
-	  return 0;
-	};
-
-	EventEmitter.listenerCount = function(emitter, type) {
-	  return emitter.listenerCount(type);
-	};
-
-	function isFunction(arg) {
-	  return typeof arg === 'function';
-	}
-
-	function isNumber(arg) {
-	  return typeof arg === 'number';
-	}
-
-	function isObject(arg) {
-	  return typeof arg === 'object' && arg !== null;
-	}
-
-	function isUndefined(arg) {
-	  return arg === void 0;
-	}
+	  return AppStore;
+	}(_iflux.Store); //import {Store} from 'iflux';
 
 
-/***/ },
-/* 271 */
-/***/ function(module, exports) {
-
-	/**
-	 * store-mixins
-	 *
-	 * 自动的把中心数据mixin进入顶层的app
-	 * 是的原理非常的简单
-	 *
-	 * @param store 数据中心store
-	 * @param reset 标识是不是需要第一次reset一次,默认true
-	 */
-	module.exports = function(store, reset)  {
-	  //如果不传递reset，默认为true
-	  if (typeof(reset) === 'undefined') {
-	    reset = true;
-	  }
-
-	  return {
-	    /**
-	     * 初始化状态
-	     */
-	    getInitialState: function() {
-	      // 在SPA中，会出现数据保留在最新的状态，而不是初始化状态
-	      // 每次加载的时候就恢复到初始状态
-	      if (reset) {
-	        store.reset();
-	      }
-	      return store.data();
-	    },
-
-
-	    /**
-	     * 当中心的数据发生变化的时候，改变顶层的app的state
-	     */
-	    componentDidMount: function() {
-	      var _this = this;
-	      store.onStoreChange(function(nextState, path) {
-	        if (_this.isMounted()) {
-	          _this.replaceState(nextState);
-	        }
-	      });
-	    }
-	  };
-	}
-
+	exports.default = AppStore;
 
 /***/ }
 /******/ ]);

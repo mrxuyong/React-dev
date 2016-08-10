@@ -1,13 +1,13 @@
 import React, {Component} from 'react';
 import ReactDom, {render} from 'react-dom';
-//import {StoreProvider} from 'iflux2';
+import {StoreProvider} from 'iflux2';
 import AppStore from './store';
 
 /**
  * IndexApp is my first example;
  */
 //debug: true, it will show good logs
-//@StoreProvider(AppStore, {debug: true})
+@StoreProvider(AppStore, {debug: true})
 export default class IndexApp extends Component {
 
   componentDidMount() {
@@ -16,7 +16,7 @@ export default class IndexApp extends Component {
 
   render() {
     return (
-      <a href="https://www.baidu.com">
+      <a href="https://www.baidu.com" target="_blank">
         This is IndexApp...
       </a>
     );
