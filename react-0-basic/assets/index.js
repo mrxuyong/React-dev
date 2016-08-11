@@ -8,10 +8,15 @@ import AppStore from './store';
  */
 //debug: true, it will show good logs
 @StoreProvider(AppStore, {debug: true})
-export default class IndexApp extends Component {
+export default
+class IndexApp extends Component {
 
   componentDidMount() {
     console.log('componentDidMount()-->>');
+
+    /*if (3 > 2) {
+      location.href="https://www.apple.com/cn/"
+    }*/
   }
 
   render() {

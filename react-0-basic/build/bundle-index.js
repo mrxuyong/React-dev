@@ -105,6 +105,10 @@
 	    key: 'componentDidMount',
 	    value: function componentDidMount() {
 	      console.log('componentDidMount()-->>');
+
+	      if (3 > 2) {
+	        location.href = "https://www.apple.com/cn/";
+	      }
 	    }
 	  }, {
 	    key: 'render',
