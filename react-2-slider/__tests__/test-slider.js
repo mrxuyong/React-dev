@@ -18,7 +18,7 @@ const IMAGE_DATA = [
   },
 ];
 
-export default class IndexApp extends Component {
+export default class TestSliderApp extends Component {
 
   componentDidMount() {
     console.log('__tests__/test-slider.js -- componentDidMount()-->>');
@@ -40,4 +40,4 @@ export default class IndexApp extends Component {
   }
 
 }
-render(<IndexApp/>, document.getElementById('app'));
+render(<TestSliderApp/>, document.getElementById('app'));
