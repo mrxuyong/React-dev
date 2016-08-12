@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 
-import SliderItem from './SliderItem/SliderItem';
-import SliderArrows from './SliderArrows/SliderArrows';
-import SliderDots from './SliderDots/SliderDots';
+import SliderItem from '../../src/SliderItem';
+import SliderArrows from '../../src/SliderArrows';
+import SliderDots from '../../src/SliderDots';
 
 import '../../src/less/Slider.less';
 
