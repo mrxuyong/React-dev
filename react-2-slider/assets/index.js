@@ -1,8 +1,7 @@
 import React, {Component} from 'react';
 import ReactDom, {render} from 'react-dom';
-//import {StoreProvider} from 'iflux2';
 
-import SliderIndex from './Slider/SliderIndex';
+import SliderIndex from '../src/index';
 
 const IMAGE_DATA = [
   {
@@ -22,7 +21,7 @@ const IMAGE_DATA = [
 export default class IndexApp extends Component {
 
   componentDidMount() {
-    console.log('index.js -- componentDidMount()-->>');
+    console.log('assets/index.js -- componentDidMount()-->>');
   }
 
   render() {
@@ -30,8 +29,8 @@ export default class IndexApp extends Component {
     return (
       <SliderIndex
         items={IMAGE_DATA}
-        speed={1.2}
-        delay={2.1}
+        speed={1.5}
+        delay={2.5}
         pause={true}
         autoPlay={true}
         arrows={true}

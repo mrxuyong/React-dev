@@ -21,7 +21,7 @@ const IMAGE_DATA = [
 export default class IndexApp extends Component {
 
   componentDidMount() {
-    console.log('index.js -- componentDidMount()-->>');
+    console.log('__tests__/test-slider.js -- componentDidMount()-->>');
   }
 
   render() {
