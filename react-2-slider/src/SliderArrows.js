@@ -9,7 +9,7 @@ export default class SliderArrows extends Component {
     super(props);
   }
 
-  handleArrowClick(option) {
+  _handleArrowClick(option) {
     this.props.turn(option);
   }
 
@@ -19,12 +19,12 @@ export default class SliderArrows extends Component {
       <div>
         <span
           className="slider-arrows slider-arrows-left"
-          onClick={this.handleArrowClick.bind(this, -1)}>
+          onClick={this._handleArrowClick.bind(this, -1)}>
           &lt;
         </span>
         <span
           className="slider-arrows slider-arrows-right"
-          onClick={this.handleArrowClick.bind(this, 1)}>
+          onClick={this._handleArrowClick.bind(this, 1)}>
           &gt;
         </span>
       </div>

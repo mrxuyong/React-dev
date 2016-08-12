@@ -9,7 +9,7 @@ export default class SliderDots extends Component {
     super(props);
   }
 
-  handleDotClick(i) {
+  _handleDotClick(i) {
     let option = i - this.props.nowLocal;
     this.props.turn(option);
   }
@@ -22,13 +22,13 @@ export default class SliderDots extends Component {
         <span
           key={'dot' + i}
           className={"slider-dot" + (i === this.props.nowLocal?" slider-dot-selected":"")}
-          onClick={this.handleDotClick.bind(this, i)}>
+          onClick={this._handleDotClick.bind(this, i)}>
         </span>
       );
     }
 
     return (
-      <div className="slider-dots-wrap">
+      <div className="slider-dots">
         {dotNodes}
       </div>
     );
