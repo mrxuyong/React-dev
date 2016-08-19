@@ -1,4 +1,4 @@
-#react-2-slider 简单的图片轮播;
+#react-4-slider-common 通用的图片轮播;
 
 ## get started
 npm install
