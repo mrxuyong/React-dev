@@ -6,7 +6,7 @@
   "license": "MIT",
   "main": "index.js",
   "scripts": {
-    "test": "jest --verbose",
+    "test": "echo \"Error: no test specified\" && exit 1",
     "build": "./node_modules/.bin/webpack --config webpack.config.js -w",
     "start": "./node_modules/.bin/webpack-dev-server --port 18020 --progress --color --config webpack.config.js"
   },
@@ -21,8 +21,7 @@
     "url": "https://github.com/xiaoyong0312/React-dev.git"
   },
   "devDependencies": {
-    "babel-cli": "^6.10.1",
-    "babel-jest": "^12.1.0",
+    "iflux": "*",
     "babel-loader": "^6.2.4",
     "babel-plugin-syntax-async-functions": "^6.8.0",
     "babel-plugin-transform-class-properties": "^6.10.2",
@@ -35,8 +34,6 @@
     "babel-preset-stage-3": "^6.5.0",
     "css-loader": "^0.23.1",
     "html-webpack-plugin": "^2.22.0",
-    "iflux": "*",
-    "jest-cli": "^12.1.1",
     "style-loader": "^0.13.1",
     "webpack": "^1.13.1",
     "webpack-dev-server": "^1.14.1"
