@@ -3,7 +3,7 @@ import ReactDom, {render} from 'react-dom';
 
 import SliderIndex from '../src/index';
 
-const IMAGE_DATA = [
+const IMAGE_LIST = [
   {
     src: 'http://img2.ph.126.net/yEeoBStBbI9eimolCsVD_A==/6630577383512916782.jpg',
     alt: 'images-1',
@@ -28,7 +28,7 @@ export default class TestSliderApp extends Component {
 
     return (
       <SliderIndex
-        items={IMAGE_DATA}
+        items={IMAGE_LIST}
         speed={1.5}
         delay={2.5}
         pause={true}
