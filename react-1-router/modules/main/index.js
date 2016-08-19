@@ -8,9 +8,12 @@ class MainApp extends React.Component {
   }
 
   render() {
-    <div>
-      This is main.js...
-    </div>
+
+    return (
+      <div>
+        This is main.js...
+      </div>
+    );
   }
 }
 export default withRouter((MainApp));

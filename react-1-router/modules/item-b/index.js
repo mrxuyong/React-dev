@@ -4,9 +4,12 @@ import {Link, withRouter} from 'react-router';
 class ItemBApp extends React.Component {
 
   render() {
-    <div>
-      This is item-b.js...
-    </div>
+
+    return (
+      <div>
+        This is item-b.js...
+      </div>
+    );
   }
 }
 export default withRouter(ItemAApp);
