@@ -24,7 +24,7 @@ export default class IndexApp extends Component {
 
     return (
       <SliderIndex
-        items={IMAGE_DATA}
+        items={IMAGE_LIST}
         speed={1.5}
         delay={2.5}
         pause={true}
