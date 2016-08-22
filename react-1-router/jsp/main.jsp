@@ -7,5 +7,5 @@
 <div id="content"></div>
 <script src="http://pic.qianmi.com/themes/demo/b2bs-new/js/dialog-min.js"></script>
 </body>
-<script src="../build/xy-app-ec108bd0168a1d24e15a.js"></script>
+<script src="../build/xy-app-d1dd7cae7dca8e1bd30d.js"></script>
 </html>

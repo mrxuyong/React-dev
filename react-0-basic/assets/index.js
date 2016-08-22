@@ -8,15 +8,15 @@ import AppStore from './store';
  */
 //debug: true, it will show good logs
 @StoreProvider(AppStore, {debug: true})
-export default
-class IndexApp extends Component {
+export default class IndexApp extends Component {
 
   componentDidMount() {
     console.log('componentDidMount()-->>');
 
     /*if (3 > 2) {
-      location.href="https://www.apple.com/cn/"
-    }*/
+     location.href="https://www.apple.com/cn/"
+     }*/
+    this._testAny('what is any ?');
   }
 
   render() {
@@ -25,6 +25,10 @@ class IndexApp extends Component {
         This is IndexApp...
       </a>
     );
+  }
+
+  _testAny(str:any) {
+    console.log('_testAny-->>' + str);
   }
 
 }
