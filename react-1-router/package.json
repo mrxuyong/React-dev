@@ -1,6 +1,9 @@
 {
   "name": "react-1-router",
   "version": "0.1.1",
+  "description": "React-dev",
+  "author": "xuyong",
+  "license": "BSD",
   "main": "app.js",
   "scripts": {
     "build": "npm install && webpack --config webpack.config.js -w",

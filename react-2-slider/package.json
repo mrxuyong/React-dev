@@ -3,7 +3,7 @@
   "version": "0.1.1",
   "description": "React-dev",
   "author": "xuyong",
-  "license": "MIT",
+  "license": "BSD",
   "main": "index.js",
   "scripts": {
     "test": "./node_modules/.bin/webpack-dev-server --port 18020 --progress --color --config webpack.config.test.js",
